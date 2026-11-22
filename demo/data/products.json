@@ -1,0 +1,65 @@
+[
+  {
+    "id": "P01", "name": "데일리 멀티비타민(가상)", "form": "정", "color": "#FF9F43",
+    "servingCount": 1, "timesPerDay": 1,
+    "nutrients": [
+      { "key": "vitD", "label": "비타민D", "amount": 10, "unit": "µg" },
+      { "key": "zinc", "label": "아연", "amount": 8.5, "unit": "mg" },
+      { "key": "vitC", "label": "비타민C", "amount": 100, "unit": "mg" }
+    ],
+    "allergens": [], "storage": "dry", "target": "성인",
+    "labelText": "1일 1회 1정 / 직사광선을 피해 건조한 곳에 보관", "expiry": "2027-08-31"
+  },
+  {
+    "id": "P02", "name": "비타민D 2000IU(가상, 해외 직구)", "form": "정", "color": "#FECA57",
+    "servingCount": 1, "timesPerDay": 1,
+    "nutrients": [{ "key": "vitD", "label": "비타민D", "amount": 50, "unit": "µg" }],
+    "allergens": [], "storage": "dry", "target": "성인",
+    "labelText": "1일 1회 1정 (해외 직구 제품, 국내 표시사항 없음)", "expiry": "2027-03-31"
+  },
+  {
+    "id": "P03", "name": "아연 25(가상, 해외 직구)", "form": "정", "color": "#FF8FAB",
+    "servingCount": 1, "timesPerDay": 1,
+    "nutrients": [{ "key": "zinc", "label": "아연", "amount": 25, "unit": "mg" }],
+    "allergens": [], "storage": "dry", "target": "성인",
+    "labelText": "1일 1회 1정 (해외 직구 제품, 국내 표시사항 없음)", "expiry": "2027-01-31"
+  },
+  {
+    "id": "P04", "name": "오메가3 1000(가상)", "form": "캡슐", "color": "#1DD1A1",
+    "servingCount": 1, "timesPerDay": 1,
+    "nutrients": [{ "key": "epa_dha", "label": "EPA·DHA", "amount": 600, "unit": "mg" }],
+    "allergens": [], "storage": "dry", "target": "성인",
+    "labelText": "1일 1회 1캡슐 / 직사광선을 피해 건조한 곳에 보관", "expiry": "2027-02-28"
+  },
+  {
+    "id": "P05", "name": "루테인 맥스(가상)", "form": "캡슐", "color": "#9B8CFF",
+    "servingCount": 1, "timesPerDay": 1,
+    "nutrients": [{ "key": "lutein", "label": "루테인", "amount": 20, "unit": "mg" }],
+    "allergens": [], "storage": "dry", "target": "성인",
+    "labelText": "1일 1회 1캡슐", "expiry": "2027-06-30"
+  },
+  {
+    "id": "P06", "name": "마그네슘 250(가상)", "form": "정", "color": "#54A0FF",
+    "servingCount": 1, "timesPerDay": 1,
+    "nutrients": [{ "key": "magnesium", "label": "마그네슘", "amount": 250, "unit": "mg" }],
+    "allergens": [], "storage": "dry", "target": "성인",
+    "labelText": "1일 1회 1정", "expiry": "2027-09-30"
+  },
+  {
+    "id": "P07", "name": "비타민B 컴플렉스(가상)", "form": "정", "color": "#FF6B6B",
+    "servingCount": 1, "timesPerDay": 2,
+    "nutrients": [{ "key": "vitB6", "label": "비타민B6", "amount": 10, "unit": "mg" }],
+    "allergens": [], "storage": "dry", "target": "성인",
+    "labelText": "1일 2회, 1회 1정", "expiry": "2027-04-30"
+  },
+  {
+    "id": "P08", "name": "틴 멀티비타민(가상, 청소년용)", "form": "정", "color": "#4CD07D",
+    "servingCount": 1, "timesPerDay": 1,
+    "nutrients": [
+      { "key": "vitD", "label": "비타민D", "amount": 5, "unit": "µg" },
+      { "key": "zinc", "label": "아연", "amount": 5, "unit": "mg" }
+    ],
+    "allergens": [], "storage": "dry", "target": "청소년",
+    "labelText": "1일 1회 1정 / 12~18세용", "expiry": "2027-07-31"
+  }
+]

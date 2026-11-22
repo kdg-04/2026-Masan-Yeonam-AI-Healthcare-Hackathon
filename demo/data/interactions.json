@@ -1,0 +1,12 @@
+[
+  {
+    "nutrientKey": "epa_dha", "drugClass": "anticoagulant", "level": "danger",
+    "reason": "출혈 위험", "source": "식약처 정보그림 뉴스",
+    "url": "https://www.mfds.go.kr/brd/m_629/view.do?seq=31"
+  },
+  {
+    "nutrientKey": "probiotics", "drugClass": "antibiotic", "level": "caution",
+    "reason": "약 효과 저하", "source": "식약처 정보그림 뉴스",
+    "url": "https://www.mfds.go.kr/brd/m_629/view.do?seq=31"
+  }
+]

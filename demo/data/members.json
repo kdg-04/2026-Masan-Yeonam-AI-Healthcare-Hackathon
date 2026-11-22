@@ -1,0 +1,6 @@
+[
+  { "id": "mom", "title": "엄마", "name": "최은정", "age": 45, "allergies": [] },
+  { "id": "dad", "title": "아빠", "name": "이준호", "age": 48, "allergies": [] },
+  { "id": "son", "title": "아들", "name": "이도윤", "age": 19, "allergies": [] },
+  { "id": "daughter", "title": "딸", "name": "이서윤", "age": 15, "allergies": ["우유"] }
+]

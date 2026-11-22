@@ -1,0 +1,14 @@
+[
+  { "slot": 1, "productId": "P02", "remaining": 55, "humidity": 38 },
+  { "slot": 2, "productId": "P03", "remaining": 48, "humidity": 38 },
+  { "slot": 3, "productId": "P05", "remaining": 30, "humidity": 39 },
+  { "slot": 4, "productId": "P04", "remaining": 9, "humidity": 41 },
+  { "slot": 5, "productId": null, "remaining": 0, "humidity": 41 },
+  { "slot": 6, "productId": null, "remaining": 0, "humidity": 41 },
+  { "slot": 7, "productId": "P06", "remaining": 50, "humidity": 37 },
+  { "slot": 8, "productId": "P07", "remaining": 60, "humidity": 37 },
+  { "slot": 9, "productId": "P08", "remaining": 45, "humidity": 38 },
+  { "slot": 10, "productId": null, "remaining": 0, "humidity": 38 },
+  { "slot": 11, "productId": null, "remaining": 0, "humidity": 38 },
+  { "slot": 12, "productId": "P01", "remaining": 40, "humidity": 38 }
+]

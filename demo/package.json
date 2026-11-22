@@ -1,0 +1,6 @@
+{
+  "name": "pumix-demo",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test \"tests/*.test.mjs\"", "gen-data": "node tools/gen-data.mjs", "start": "npx serve ." }
+}

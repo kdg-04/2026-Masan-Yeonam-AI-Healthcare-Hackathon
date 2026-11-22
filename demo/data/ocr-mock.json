@@ -1,0 +1,133 @@
+{
+  "label-probiotics.svg": {
+    "id": "P09",
+    "name": "데일리 유산균(가상)",
+    "form": "캡슐",
+    "color": "#F368E0",
+    "servingCount": 1,
+    "timesPerDay": 1,
+    "nutrients": [
+      {
+        "key": "probiotics",
+        "label": "프로바이오틱스",
+        "amount": 100,
+        "unit": "억 CFU"
+      }
+    ],
+    "allergens": [
+      "우유"
+    ],
+    "storage": "dry",
+    "target": "성인",
+    "labelText": "Contains: Milk / Store in a cool, dry place / For adults.",
+    "expiry": "2027-05-31",
+    "sourceLang": "en",
+    "readNotes": [
+      {
+        "field": "name",
+        "raw": "Daily Probiotic 10B",
+        "read": "데일리 유산균(가상)"
+      },
+      {
+        "field": "serving",
+        "raw": "Serving Size: 1 Capsule / Take 1 capsule daily",
+        "read": "1회 1캡슐, 1일 1회"
+      },
+      {
+        "field": "packageCount",
+        "raw": "Servings Per Container: 30",
+        "read": "내용량 30캡슐"
+      },
+      {
+        "field": "nutrients",
+        "raw": "Probiotic Blend 10 Billion CFU",
+        "read": "프로바이오틱스 100억 CFU",
+        "confirm": true,
+        "note": "단위 환산: 10 Billion = 100억"
+      },
+      {
+        "field": "allergens",
+        "raw": "Contains: Milk",
+        "read": "알레르기 표시: 우유"
+      },
+      {
+        "field": "storage",
+        "raw": "Store in a cool, dry place",
+        "read": "건조 보관 → 기기가 칸 습도 관리",
+        "confirm": true,
+        "note": "보관 조건 해석: 습기를 피해야 하는 제품"
+      },
+      {
+        "field": "target",
+        "raw": "For adults",
+        "read": "섭취 대상: 성인"
+      }
+    ],
+    "packageCount": 30,
+    "model": "claude-opus-5-5",
+    "capturedAt": "2026-11-21T01:27:00+09:00",
+    "capturedBy": "Claude Code 세션에서 그림(PNG)을 비전 모델로 한 번 판독해 저장(미리 받은 결과). 실시간 호출은 API 키가 생기면 교체",
+    "rawLines": [
+      "DIETARY SUPPLEMENT (VIRTUAL)",
+      "Daily Probiotic 10B",
+      "30 Veggie Capsules",
+      "Supplement Facts",
+      "Serving Size: 1 Capsule",
+      "Servings Per Container: 30",
+      "Probiotic Blend 10 Billion CFU",
+      "Directions: Take 1 capsule daily.",
+      "Contains: Milk",
+      "Store in a cool, dry place",
+      "For adults. Exp 05/2027",
+      "가상 제품 · 해커톤 데모 (virtual product)"
+    ]
+  },
+  "med-anticoagulant.svg": {
+    "id": "M01",
+    "name": "혈전예방정(가상)",
+    "drugClass": "anticoagulant",
+    "drugClassLabel": "항응고제",
+    "timesPerDay": 1,
+    "note": "출혈이 생기기 쉬워요 · 다른 약·건강기능식품은 약사와 상담 (약 봉투 문구)",
+    "storage": "실온 보관",
+    "model": "claude-opus-5-5",
+    "capturedAt": "2026-11-21T01:27:00+09:00",
+    "capturedBy": "Claude Code 세션에서 그림(PNG)을 비전 모델로 한 번 판독해 저장(미리 받은 결과). 실시간 호출은 API 키가 생기면 교체",
+    "rawLines": [
+      "복약 안내 (약 봉투)",
+      "환자명 이준호 (가상)",
+      "조제일 2026.11.20",
+      "약품명 혈전예방정 5mg (가상)",
+      "분류 항응고제",
+      "복용법 1일 1회 1정 · 저녁 식후",
+      "복용 시 주의 · 출혈이 생기기 쉬워요 · 다른 약·건강기능식품은 약사와 상담",
+      "보관 실온 보관",
+      "가상약국 · 해커톤 데모 (가상 데이터)"
+    ],
+    "readNotes": [
+      {
+        "field": "name",
+        "raw": "약품명 혈전예방정 5mg (가상)",
+        "read": "혈전예방정(가상) · 5mg"
+      },
+      {
+        "field": "drugClass",
+        "raw": "분류 항응고제",
+        "read": "항응고제 → 영양제 병용 주의 표와 대조",
+        "confirm": true,
+        "note": "분류로 병용 주의(예: 오메가3)를 찾아요"
+      },
+      {
+        "field": "dose",
+        "raw": "복용법 1일 1회 1정 · 저녁 식후",
+        "read": "1일 1회 1정, 저녁"
+      },
+      {
+        "field": "caution",
+        "raw": "복용 시 주의 · 출혈이 생기기 쉬워요",
+        "read": "출혈 주의 (봉투 문구 그대로)"
+      }
+    ],
+    "dose": "5mg"
+  }
+}

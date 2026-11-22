@@ -1,0 +1,14 @@
+{
+  "mom": [
+    { "productId": "P01", "count": 1 },
+    { "productId": "P02", "count": 1 },
+    { "productId": "P03", "count": 1 },
+    { "productId": "P04", "count": 1 }
+  ],
+  "dad": [{ "productId": "P05", "count": 1 }],
+  "son": [
+    { "productId": "P06", "count": 1 },
+    { "productId": "P07", "count": 1 }
+  ],
+  "daughter": [{ "productId": "P08", "count": 1 }]
+}

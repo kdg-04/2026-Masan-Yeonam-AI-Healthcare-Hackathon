@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" font-family="Arial, 'Apple SD Gothic Neo', sans-serif">
+  <rect width="300" height="400" rx="18" fill="#eef4fb"/>
+  <rect x="24" y="24" width="252" height="352" rx="12" fill="#ffffff" stroke="#c9d6e6"/>
+  <text x="44" y="66" font-size="12" fill="#5b6b80">DIETARY SUPPLEMENT (VIRTUAL)</text>
+  <text x="44" y="100" font-size="22" font-weight="700" fill="#1d2a3a">Daily Probiotic 10B</text>
+  <text x="44" y="124" font-size="12" fill="#5b6b80">30 Veggie Capsules</text>
+  <rect x="44" y="140" width="212" height="120" fill="none" stroke="#1d2a3a"/>
+  <text x="52" y="160" font-size="13" font-weight="700" fill="#1d2a3a">Supplement Facts</text>
+  <text x="52" y="178" font-size="11" fill="#1d2a3a">Serving Size: 1 Capsule</text>
+  <text x="52" y="194" font-size="11" fill="#1d2a3a">Servings Per Container: 30</text>
+  <line x1="52" y1="203" x2="248" y2="203" stroke="#1d2a3a"/>
+  <text x="52" y="221" font-size="11" fill="#1d2a3a">Probiotic Blend</text>
+  <text x="248" y="221" font-size="11" font-weight="700" fill="#1d2a3a" text-anchor="end">10 Billion CFU</text>
+  <text x="52" y="248" font-size="10" fill="#5b6b80">Directions: Take 1 capsule daily.</text>
+  <text x="44" y="284" font-size="13" font-weight="700" fill="#b4372b">Contains: Milk</text>
+  <text x="44" y="304" font-size="11" fill="#5b6b80">Store in a cool, dry place</text>
+  <text x="44" y="322" font-size="11" fill="#5b6b80">For adults. Exp 05/2027</text>
+  <text x="44" y="354" font-size="10" fill="#8a97a8">가상 제품 · 해커톤 데모 (virtual product)</text>
+</svg>

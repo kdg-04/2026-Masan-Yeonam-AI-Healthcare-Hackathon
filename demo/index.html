@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PUMIX 시연</title>
+  <meta name="description" content="PUMIX 해커톤 시연 화면 — 왼쪽 3D 기기 + 오른쪽 휴대폰 앱 (모든 데이터는 가상)">
+  <link href="css/split.css" rel="stylesheet">
+</head>
+<body class="split-page">
+  <iframe class="split__device" id="device" title="PUMIX 기기"></iframe>
+  <iframe class="split__app" id="app" title="PUMIX 앱"></iframe>
+  <a class="split__phone" id="phone-link" href="device.html" hidden>휴대폰으로 조종하기</a>
+  <script>
+    // 시연 화면: 왼쪽 3D 기기 + 오른쪽 휴대폰 앱. 같은 브라우저 통로만 쓴다 (?relay=local, 인터넷 없어도 됨)
+    const params = new URLSearchParams(location.search);
+    const room = params.get('room') || 'split';
+    const link = document.getElementById('phone-link');
+    if (params.get('phone') === '1') {
+      // 휴대폰 조종 모드: 이 화면은 그대로, 기기는 인터넷(Supabase)으로 휴대폰 앱과 연결,
+      // 오른쪽 아이폰 틀은 실제 휴대폰 화면을 따라 그린다(?follow=1). 왼쪽 기기 화면에 휴대폰용 QR이 뜬다
+      const q = `?room=${encodeURIComponent(room)}&split=1`;
+      document.getElementById('device').src = `device.html${q}`;
+      document.getElementById('app').src = `app.html${q}&view=mirror&follow=1`;
+      link.textContent = '휴대폰 조종 끝내기';
+      link.href = 'index.html';
+    } else {
+      const q = `?relay=local&room=${encodeURIComponent(room)}&split=1`; // split=1: 예전 서버가 남긴 브라우저 이동 기록(주소 설정이 지워짐)을 피하려고 주소를 바꿈
+      document.getElementById('device').src = `device.html${q}`;
+      document.getElementById('app').src = `app.html${q}&view=mirror`; // 아이폰 미러링 틀
+      // 휴대폰으로 조종: 새 방 코드로 같은 화면을 휴대폰 조종 모드로 다시 연다
+      link.href = `index.html?phone=1&room=pumix-${Math.random().toString(36).slice(2, 6)}`;
+    }
+  </script>
+  <noscript><p>이 데모는 자바스크립트가 필요해요.</p></noscript>
+</body>
+</html>

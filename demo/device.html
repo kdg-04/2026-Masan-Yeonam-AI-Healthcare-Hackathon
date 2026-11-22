@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PUMIX 기기</title>
+  <meta name="description" content="PUMIX 해커톤 데모 — 12칸 영양제 디스펜서 (가상 실물)">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@700&family=Instrument+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="css/device.css" rel="stylesheet">
+  <script src="vendor/supabase.js"></script>
+  <script src="vendor/qrcode.js"></script>
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js", "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js", "three/addons/environments/RoomEnvironment.js": "./vendor/RoomEnvironment.js" } }
+  </script>
+  <script type="module" src="js/device/device.js"></script>
+</head>
+<body class="device-page">
+  <div class="machine" id="machine" aria-label="영양제 디스펜서 3D 화면. 칸을 누르면 앱에서 그 칸을 보여 주고, 앞면 이름 버튼을 누르면 그 사람 파우치가 나와요."></div>
+
+  <section class="waiting" id="waiting">
+    <h1>앱 연결을 기다리는 중</h1>
+    <p>휴대폰에서 아래 주소를 열어 주세요. 방 코드 <span class="dose" id="room">demo</span></p>
+    <div class="waiting__qr" id="app-qr" aria-hidden="true"></div>
+    <p class="dose waiting__url" id="app-url"></p>
+    <noscript><p>이 데모는 자바스크립트가 필요해요.</p></noscript>
+  </section>
+
+  <div class="panel">
+    <p class="panel__name">AI 영양 디스펜서 PUMIX</p>
+    <p class="display" role="status"><span id="display-text">켜는 중</span></p>
+    <button class="xray-btn" id="xray" type="button" aria-pressed="false">내부 보기</button>
+  </div>
+  <p class="conn" id="conn" data-status="none"><span>앱 없음</span></p>
+  <p class="device-note" id="device-note" role="status" hidden></p>
+  <footer class="virtual-note">모든 인물·제품·수치는 가상입니다</footer>
+</body>
+</html>

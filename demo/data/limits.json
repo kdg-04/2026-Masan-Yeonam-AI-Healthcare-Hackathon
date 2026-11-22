@@ -1,0 +1,7 @@
+[
+  { "key": "vitD", "label": "비타민D", "ul": 100, "unit": "µg", "ageMin": 19, "source": "2025 한국인 영양소 섭취기준", "verified": false },
+  { "key": "zinc", "label": "아연", "ul": 35, "unit": "mg", "ageMin": 19, "source": "2025 한국인 영양소 섭취기준", "verified": false },
+  { "key": "vitC", "label": "비타민C", "ul": 2000, "unit": "mg", "ageMin": 19, "source": "2025 한국인 영양소 섭취기준", "verified": false },
+  { "key": "vitB6", "label": "비타민B6", "ul": 50, "unit": "mg", "ageMin": 19, "source": "2025 한국인 영양소 섭취기준", "verified": false },
+  { "key": "magnesium", "label": "마그네슘(식품 외 급원)", "ul": 350, "unit": "mg", "ageMin": 19, "source": "2025 한국인 영양소 섭취기준", "verified": false }
+]

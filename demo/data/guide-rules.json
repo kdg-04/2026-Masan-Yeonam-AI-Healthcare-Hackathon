@@ -1,0 +1,12 @@
+[
+  {
+    "id": "G01", "metric": "outdoorMin", "condition": "recent14avg <= prev14avg * 0.5",
+    "nutrientKey": "vitD", "showCurrentIntake": true, "copyKey": "guideVitD",
+    "source": "보건 팀원 확인 필요 (비타민D 피부 합성 관련 공공 자료)"
+  },
+  {
+    "id": "G02", "metric": "muscleKg", "condition": "4주 연속 감소",
+    "nutrientKey": "protein", "supplement": false, "copyKey": "guideMuscle",
+    "source": "보건 팀원 확인 필요"
+  }
+]

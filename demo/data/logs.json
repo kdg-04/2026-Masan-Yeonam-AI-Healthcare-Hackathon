@@ -1,0 +1,842 @@
+[
+ {
+  "date": "2026-10-24",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-24",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-24",
+  "memberId": "son",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-10-24",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-24",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-25",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-25",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-25",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-25",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-25",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-26",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-26",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-26",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-26",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-26",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-27",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-27",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-27",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-27",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-27",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-28",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-28",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-28",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-28",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-28",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-29",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-29",
+  "memberId": "dad",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-10-29",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-29",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-29",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-30",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-30",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-30",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-30",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-30",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-31",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-31",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-10-31",
+  "memberId": "son",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-10-31",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-10-31",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-01",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-01",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-01",
+  "memberId": "son",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-11-01",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-01",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-02",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-02",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-02",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-02",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-02",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-03",
+  "memberId": "mom",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-11-03",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-03",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-03",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-03",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-04",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-04",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-04",
+  "memberId": "son",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-11-04",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-04",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-05",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-05",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-05",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-05",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-05",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-11-06",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-06",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-06",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-06",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-06",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-07",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-07",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-07",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-07",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-07",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-08",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-08",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-08",
+  "memberId": "son",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-11-08",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-08",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-09",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-09",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-09",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-09",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-09",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-10",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-10",
+  "memberId": "dad",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-11-10",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-10",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-10",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-11",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-11",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-11",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-11",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-11",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-12",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-12",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-12",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-12",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-12",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-13",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-13",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-13",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-13",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-13",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-14",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-14",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-14",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-14",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-14",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-15",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-15",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-15",
+  "memberId": "son",
+  "round": 1,
+  "taken": false
+ },
+ {
+  "date": "2026-11-15",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-15",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-16",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-16",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-16",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-16",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-16",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-17",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-17",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-17",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-17",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-17",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-18",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-18",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-18",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-18",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-18",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-19",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-19",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-19",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-19",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-19",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-20",
+  "memberId": "mom",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-20",
+  "memberId": "dad",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-20",
+  "memberId": "son",
+  "round": 1,
+  "taken": true
+ },
+ {
+  "date": "2026-11-20",
+  "memberId": "son",
+  "round": 2,
+  "taken": true
+ },
+ {
+  "date": "2026-11-20",
+  "memberId": "daughter",
+  "round": 1,
+  "taken": true
+ }
+]
