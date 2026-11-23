@@ -102,7 +102,7 @@ function renderAssign(s) {
       <div class="steps" aria-label="3단계 / 3단계"><span class="steps__bar"><i class="on"></i><i class="on"></i><i class="on"></i></span><p><span>3단계 / 3단계</span><b>칸 배정</b></p></div>` + `
   <div class="assign plastic">
     <p class="assign__slot"><span class="dose">${pd.slot}</span><span>번 칸</span></p>
-    <p>${esc(pd.message)}</p>
+    <p>${esc(pd.loaded ? fmt(s.copy.slotLoaded, { name: p.name, slot: pd.slot }) : pd.message)}</p>
   </div>
   <p class="muted">${esc(withJosa(p.name, '을/를'))} 기기 가운데 투입통에 넣으면 원판이 돌아 ${pd.slot}번 칸으로 옮겨요.</p>
   ${pd.loaded

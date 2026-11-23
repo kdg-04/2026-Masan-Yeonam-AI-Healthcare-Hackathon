@@ -25,7 +25,7 @@ test('slots: 빈 칸 중 번호가 가장 작은 5번 (서늘 구역 없음)', (
   const s = demoState();
   const a = assignSlot(s.probiotics, s.slots);
   assert.deepEqual(a, { slot: 5 });
-  assert.equal(slotMessage(s.probiotics, a, s.copy), '데일리 유산균(가상)은 5번 칸에 넣었어요. 칸 안 습도는 기기가 관리해요.');
+  assert.equal(slotMessage(s.probiotics, a, s.copy), '데일리 유산균(가상)은 5번 칸에 넣을게요. 칸 안 습도는 기기가 관리해요.');
 });
 
 test('slots: 5·6번이 차 있으면 다음 빈 칸 10번', () => {
@@ -33,7 +33,7 @@ test('slots: 5·6번이 차 있으면 다음 빈 칸 10번', () => {
   const full = s.slots.map((x) => ([5, 6].includes(x.slot) ? { ...x, productId: 'X' } : x));
   const a = assignSlot(s.probiotics, full);
   assert.deepEqual(a, { slot: 10 });
-  assert.equal(slotMessage(s.probiotics, a, s.copy), '데일리 유산균(가상)은 10번 칸에 넣었어요. 칸 안 습도는 기기가 관리해요.');
+  assert.equal(slotMessage(s.probiotics, a, s.copy), '데일리 유산균(가상)은 10번 칸에 넣을게요. 칸 안 습도는 기기가 관리해요.');
 });
 
 test('slots: 빈 칸이 없으면 null', () => {

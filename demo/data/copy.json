@@ -1,6 +1,7 @@
 {
   "_note": "화면 문구는 전부 여기서. 보건행정 팀원 검수 전 초안. {변수}는 엔진이 채움. 금지어: 추천, 드세요(권유), 효과, 효능, 개선, 치료, 예방, 진단, 부족해요, 안전합니다, 실제 브랜드명",
-  "slotAssigned": "{name:은/는} {slot}번 칸에 넣었어요. 칸 안 습도는 기기가 관리해요.",
+  "slotAssigned": "{name:은/는} {slot}번 칸에 넣을게요. 칸 안 습도는 기기가 관리해요.",
+  "slotLoaded": "{name:은/는} {slot}번 칸에 넣었어요. 칸 안 습도는 기기가 관리해요.",
   "slotFull": "빈 칸이 없어서 등록할 수 없어요.",
   "duplicateTitle": "{label} 중복",
   "duplicate": "{label:이/가} {count}개 제품에 들어 있어요. 하루 합계 {total}{unit}{pctPart}.",
