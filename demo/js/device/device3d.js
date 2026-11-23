@@ -799,6 +799,7 @@ function buildSealer() {
 /* ───── 속 보기 ───── */
 const HOME = { pos: new THREE.Vector3(1.5, 5.0, 11.8), target: new THREE.Vector3(0, 1.75, 0) };
 const INSIDE = { pos: new THREE.Vector3(2.0, 5.3, 9.6), target: new THREE.Vector3(0, 2.1, 0) }; // 버튼을 누르면 이 자리로 다가감. 너무 확대되지 않게 거리 약 10 (11-21)
+const LOADVIEW = { pos: new THREE.Vector3(2.3, 6.4, 9.9), target: new THREE.Vector3(0, 2.85, 0.1) }; // 넣기: 위의 영양제 통과 아래 칸이 함께 보이게
 let camFrom = null, camTo = null, savedView = null;
 export function setXray(on, ms = 650) {
   const from = xray, to = on ? 1 : 0;
@@ -992,29 +993,92 @@ async function hold(fn) {
 }
 export function isBusy() { return busy; }
 
-/** 투입: 덮개 열림 → 디스크가 대상 칸을 앞으로 → 알약 여러 알이 호퍼·하우징·노즐을 지나 칸에 차례로 떨어져 쌓임(11-23)
- *  remaining: 새 칸 잔량(앱이 정함). 그만큼(slotCount) 붓고, 떨어진 자리는 updateSlots와 같아 넣은 뒤에도 그대로 */
+/** 넣기 장면용 영양제 통(11-23): 흰 플라스틱 통 + 제품 색 뚜껑 + 이름 라벨. 그룹 원점 = 통 입구(기울일 때 축) */
+function makeBottle(p) {
+  const g = new THREE.Group();
+  const prof = [[0, -0.8], [0.2, -0.8], [0.235, -0.775], [0.24, -0.72], [0.24, -0.24], [0.21, -0.16], [0.12, -0.09], [0.1, -0.07], [0.1, 0]]
+    .map(([r, y]) => new THREE.Vector2(r, y));
+  const body = new THREE.Mesh(new THREE.LatheGeometry(prof, 48), new THREE.MeshPhysicalMaterial({ color: '#f7f8fa', roughness: 0.35, clearcoat: 0.5, side: THREE.DoubleSide }));
+  g.add(body);
+  const name = (p.name ?? '영양제').replace(/\(.*?\)/g, '').trim();
+  const label = canvasTex(512, 180, (c, W, H) => {
+    c.fillStyle = '#ffffff'; c.fillRect(0, 0, W, H);
+    c.fillStyle = p.color; c.fillRect(0, 0, W, 46); c.fillRect(0, H - 22, W, 22);
+    c.fillStyle = '#2b3138'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.font = `700 ${name.length > 9 ? 34 : 42}px Pretendard, system-ui, sans-serif`;
+    c.fillText(name, W / 2, 98);
+    c.font = '500 22px Pretendard, system-ui, sans-serif'; c.fillStyle = '#6b7280';
+    c.fillText(`${p.form ?? '정'} · 가상 제품`, W / 2, 138);
+  }).tex;
+  // u=0.5(글자 가운데)가 앞(+z)을 보게 thetaStart = π
+  const wrap = new THREE.Mesh(new THREE.CylinderGeometry(0.243, 0.243, 0.36, 48, 1, true, Math.PI), new THREE.MeshStandardMaterial({ map: label, roughness: 0.6 }));
+  wrap.position.y = -0.48; g.add(wrap);
+  const capMat = new THREE.MeshPhysicalMaterial({ color: new THREE.Color(p.color).multiplyScalar(0.85), roughness: 0.4, clearcoat: 0.4 });
+  const cap = new THREE.Group();
+  const capBody = new THREE.Mesh(new THREE.CylinderGeometry(0.118, 0.118, 0.11, 32), capMat);
+  capBody.position.y = 0.045; cap.add(capBody);
+  for (let k = 0; k < 16; k++) { // 뚜껑 홈
+    const a = (k / 16) * Math.PI * 2;
+    const rib = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.09, 0.012), capMat);
+    rib.position.set(0.119 * Math.sin(a), 0.045, 0.119 * Math.cos(a)); cap.add(rib);
+  }
+  g.add(cap);
+  return { g, cap };
+}
+
+/** 투입: 영양제 통이 기기 위로 와서 뚜껑이 돌려 열리고 → 기울어져 알약이 호퍼로 쏟아짐 → 알약이 노즐을 지나 칸에 차례로 쌓임 (11-23)
+ *  집에서 먹던 영양제를 기계로 옮기는 장면. remaining: 새 칸 잔량(앱이 정함). 그만큼(slotCount) 붓고, 떨어진 자리는 updateSlots와 같다 */
 export function load(productId, n, remaining = 30) {
   return hold(async () => {
-    const p = products.get(productId) ?? { color: '#7FB8E6', form: '캡슐' };
+    const p = products.get(productId) ?? { color: '#7FB8E6', form: '캡슐', name: '영양제' };
     const capsule = p.form === '캡슐';
     if (pouchZoom) await zoomPouch(false);
     setUI({ status: `${n}번 칸에 넣는 중`, done: false });
-    await setXray(true);
-    await tween(450, (t) => { hinge.rotation.x = -1.05 * t; });
-    await rotateTo(n);
-    glowSlot(n);
+    const TOP = BODY_H + BEVEL;
+    const { g: bottle, cap } = makeBottle(p);
+    const rest = new THREE.Vector3(0.78, TOP + 0.95, FEED_Z);   // 통이 서 있는 자리(입구 기준)
+    const pourAt = new THREE.Vector3(0.14, TOP + 0.24, FEED_Z); // 기울였을 때 입구 자리: 열린 덮개 위, 호퍼 바로 위
+    bottle.position.copy(rest).add(new THREE.Vector3(0, 0.7, 0));
+    bottle.scale.setScalar(0.01);
+    scene.add(bottle);
+
+    // 1) 속 보기 + 카메라는 통까지 보이게, 덮개 열림, 빈 칸을 앞으로, 통이 내려옴
+    const xr = setXray(true); camTo = LOADVIEW;
+    const enter = bottle.position.clone();
+    await Promise.all([
+      xr,
+      tween(450, (t) => { hinge.rotation.x = -1.05 * t; }),
+      rotateTo(n).then(() => glowSlot(n)),
+      tween(600, (t) => { bottle.position.lerpVectors(enter, rest, t); bottle.scale.setScalar(Math.max(0.01, t)); }),
+    ]);
+
+    // 2) 뚜껑을 돌려 열고 옆으로 치움
+    await tween(520, (t) => { cap.rotation.y = -t * Math.PI * 3; cap.position.y = t * 0.1; });
+    const capFrom = cap.position.clone();
+    await tween(280, (t) => { cap.position.set(capFrom.x + t * 0.3, capFrom.y + t * 0.15, capFrom.z); cap.scale.setScalar(Math.max(0.01, 1 - t)); });
+    cap.visible = false;
+
+    // 3) 통이 호퍼 위로 와서 기울어짐 (입구가 왼쪽 아래를 봄)
+    const tilt = 2.05;
+    await tween(650, (t) => { bottle.position.lerpVectors(rest, pourAt, t); bottle.rotation.z = tilt * t; });
+
+    // 4) 알약이 입구에서 쏟아져 호퍼 → 노즐 → 칸으로, 차례로 쌓임. 붓는 동안 통이 살짝 흔들림
     const c = compartments.get(n);
     for (const old of c.pills) c.group.remove(old);
     c.pills = [];
-    disc.updateMatrixWorld(true);
+    disc.updateMatrixWorld(true); bottle.updateMatrixWorld(true);
+    const mouth = bottle.localToWorld(new THREE.Vector3(0, 0.03, 0));
+    const out = bottle.localToWorld(new THREE.Vector3(0, 0.2, 0));
     const total = slotCount(remaining);
-    await Promise.all(Array.from({ length: total }, (_, i) => wait(i * 60).then(async () => {
+    let shaking = true;
+    const shake = (async () => { const t0 = performance.now(); while (shaking) { bottle.rotation.z = tilt + Math.sin((performance.now() - t0) / 70) * 0.04; await new Promise((r) => requestAnimationFrame(r)); } bottle.rotation.z = tilt; })();
+    const falling = Promise.all(Array.from({ length: total }, (_, i) => wait(i * 60).then(async () => {
       const pose = slotPillPose(c, i);
       const land = c.group.localToWorld(pose.pos.clone());
-      const x = ((i % 3) - 1) * 0.025;
+      const j = ((i % 3) - 1) * 0.02;
       const path = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(x, BODY_H + 0.9, FEED_Z), new THREE.Vector3(x * 0.5, 3.7, FEED_Z), new THREE.Vector3(0, 3.33, FEED_Z),
+        mouth.clone().add(new THREE.Vector3(0, 0, j)), new THREE.Vector3((out.x + 0.02) * 0.5, out.y - 0.05, FEED_Z + j),
+        new THREE.Vector3(0, 3.86, FEED_Z), new THREE.Vector3(0, 3.6, FEED_Z), new THREE.Vector3(0, 3.33, FEED_Z),
         new THREE.Vector3(0, 3.0, FEED_Z), new THREE.Vector3(0, BIN_TOP + 0.02, FEED_Z),
         new THREE.Vector3(land.x, DISC.y + 0.32, land.z), land,
       ]);
@@ -1022,14 +1086,24 @@ export function load(productId, n, remaining = 30) {
       pill.rotation.y = pose.rotY;
       pill.position.copy(path.getPointAt(0)); // 장면에 넣기 전에 시작 자리로: 안 그러면 첫 프레임에 원점(출구 아래 몸체 속)에 한 번 보임
       scene.add(pill);
-      await tween(900, (t) => { pill.position.copy(path.getPointAt(t)); });
+      await tween(1000, (t) => { pill.position.copy(path.getPointAt(t)); });
       c.group.attach(pill);
       pill.position.copy(pose.pos);
       pill.rotation.set(0, pose.rotY, capsule ? Math.PI / 2 : 0); // updateSlots와 같은 자세
       c.pills.push(pill);
     })));
-    await tween(450, (t) => { hinge.rotation.x = -1.05 * (1 - t); });
-    await wait(400);
+    await wait((total - 1) * 60 + 250); // 마지막 알약이 입구를 떠나면 바로 통을 세움 (칸에 떨어지는 건 계속)
+    shaking = false; await shake;
+
+    // 5) 통을 세우고 위로 치움, 덮개 닫힘, 남은 알약이 칸에 마저 쌓임
+    const back = bottle.position.clone();
+    await Promise.all([
+      falling,
+      tween(600, (t) => { bottle.rotation.z = tilt * (1 - t); bottle.position.lerpVectors(back, rest.clone().add(new THREE.Vector3(0, 0.5, 0)), t); bottle.scale.setScalar(Math.max(0.01, 1 - t * t)); }),
+      wait(350).then(() => tween(450, (t) => { hinge.rotation.x = -1.05 * (1 - t); })),
+    ]);
+    scene.remove(bottle);
+    await wait(300);
     glowSlot(null);
     await setXray(false);
     setUI({ status: `${n}번 칸에 넣었어요` });
