@@ -120,7 +120,7 @@ export function bind(root, api, s) {
   for (const b of root.querySelectorAll('[data-label]')) b.addEventListener('click', async () => {
     api.set('ui.reg', { reading: true });
     await sleep(2400); // 스캔·단계 애니메이션이 끝날 만큼
-    const product = structuredClone(s.ocr[b.dataset.label]);
+    const product = { ...structuredClone(s.ocr[b.dataset.label]), labelImage: `assets/labels/${b.dataset.label}` }; // 넣기 장면의 통 라벨로 같은 사진을 씀
     api.set('ui.reg', { product, memberId: s.members.some((m) => m.id === 'mom') ? 'mom' : s.ui.member }); // 시연 유산균은 엄마 것(엄마가 아직 초대 전이면 지금 고른 사람)
   });
   const form = root.querySelector('#reg-form');

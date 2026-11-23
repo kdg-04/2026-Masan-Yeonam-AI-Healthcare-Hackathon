@@ -146,8 +146,8 @@ const pillGeo = {
   tablet: new THREE.CylinderGeometry(0.048, 0.048, 0.03, 20),
 };
 const pillMats = new Map();
-/** 칸에 보이는 알약 수: 잔량 1.2회분당 1알, 최대 45알 */
-const slotCount = (remaining) => Math.min(45, Math.max(1, Math.round(remaining / 1.2)));
+/** 칸에 보이는 알약 수: 잔량 1회분당 1알, 최대 45알 (새로 넣는 30회분 제품은 30알을 붓는다) */
+const slotCount = (remaining) => Math.min(45, Math.max(1, Math.round(remaining)));
 /** 칸 안 i번째 알약 자리(칸 그룹 기준)와 회전 — updateSlots와 넣기 장면이 같은 자리를 써서 넣은 뒤 알약이 튀지 않게 */
 function slotPillPose(c, i) {
   const row = i % 4, layer = Math.floor(i / 6);
@@ -995,7 +995,7 @@ export function isBusy() { return busy; }
 
 /** 넣기 장면용 영양제 통(11-23): 입구가 넓은 흰 플라스틱 통 + 흰 홈 뚜껑 + 몸통을 감싸는 큰 라벨(제품 이름·색 포인트).
  *  그룹 원점 = 통 입구(기울일 때 축) */
-function makeBottle(p) {
+function makeBottle(p, count) {
   const g = new THREE.Group();
   const white = new THREE.MeshPhysicalMaterial({ color: '#fbfbfc', roughness: 0.45, clearcoat: 0.25, side: THREE.DoubleSide });
   const prof = [[0, -0.92], [0.22, -0.92], [0.262, -0.9], [0.272, -0.86], [0.272, -0.2], [0.262, -0.14], [0.235, -0.1], [0.195, -0.075], [0.188, -0.06], [0.188, 0]]
@@ -1007,6 +1007,7 @@ function makeBottle(p) {
     const cx = W / 2;
     c.fillStyle = p.color; c.fillRect(0, 0, W, 26);                                // 위 색 띠
     c.globalAlpha = 0.14; c.beginPath(); c.ellipse(cx, H + 120, 520, 260, 0, 0, Math.PI * 2); c.fill(); c.globalAlpha = 1; // 아래 색 물결
+    if (p.labelImage) return; // 라벨 사진을 앞에 붙이는 제품은 둘레에 색만 두고 글씨는 사진에 맡김
     c.textAlign = 'center'; c.textBaseline = 'middle';
     c.fillStyle = '#8a9099'; c.font = '600 30px Pretendard, system-ui, sans-serif';
     c.fillText('D A I L Y   S U P P L E M E N T', cx, 92);
@@ -1014,7 +1015,7 @@ function makeBottle(p) {
     c.fillText(name, cx, 200);
     c.fillStyle = '#4b5563'; c.font = '500 34px Pretendard, system-ui, sans-serif';
     c.fillText('식이보충 · 가상 제품', cx, 282);
-    const tag = p.form === '캡슐' ? '60 캡슐' : '60 정';
+    const tag = `${count} ${p.form === '캡슐' ? '캡슐' : '정'}`;
     c.font = '700 34px Pretendard, system-ui, sans-serif';
     const tw = c.measureText(tag).width + 56;
     c.fillStyle = p.color; c.beginPath(); c.roundRect(cx - tw / 2, 340, tw, 58, 29); c.fill();
@@ -1023,6 +1024,21 @@ function makeBottle(p) {
   // 라벨: u=0.5(글자 가운데)가 앞(+z)을 보게 thetaStart = π
   const wrap = new THREE.Mesh(new THREE.CylinderGeometry(0.275, 0.275, 0.6, 56, 1, true, Math.PI), new THREE.MeshStandardMaterial({ map: label, roughness: 0.55 }));
   wrap.position.y = -0.52; g.add(wrap);
+  if (p.labelImage) {
+    // 앱에서 AI가 읽은 그 라벨 사진(예: 영문 직구 유산균)을 앞면에 붙임. SVG를 3배로 그려 선명하게
+    const panelMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.55 });
+    const arc = 1.6, r = 0.278, h = Math.min(0.6, (arc * r * 4) / 3); // 라벨 사진 비율 3:4
+    const panel = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 40, 1, true, -arc / 2, arc), panelMat);
+    panel.position.y = -0.52; g.add(panel);
+    const img = new Image();
+    img.onload = () => {
+      const c = document.createElement('canvas'); c.width = 900; c.height = 1200;
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+      panelMat.map = tex; panelMat.needsUpdate = true;
+    };
+    img.src = p.labelImage;
+  }
   // 뚜껑: 흰 뚜껑 + 촘촘한 세로 홈
   const cap = new THREE.Group();
   const capMat = new THREE.MeshPhysicalMaterial({ color: '#f4f5f7', roughness: 0.5, clearcoat: 0.2 });
@@ -1068,15 +1084,17 @@ function nearestFilled(n) {
 /** 투입(11-23): 집에서 먹던 영양제 통을 기계로 옮기는 장면.
  *  ① 약통은 차 있는 칸에 맞춰 둔 채, 통이 와서 뚜껑을 돌려 열고 기울어 → 알약이 호퍼에 쌓임
  *  ② 통이 빠지고 덮개 닫힘 → 약통을 빈 칸으로 조금 돌림 → ③ 호퍼 아래부터 한 알씩 노즐을 지나 칸에 쌓임
- *  remaining: 새 칸 잔량(앱이 정함). 그만큼(slotCount) 붓고, 칸에 떨어진 자리는 updateSlots와 같다 */
-export function load(productId, n, remaining = 30) {
+ *  remaining: 새 칸 잔량(앱이 정함). 그만큼(slotCount) 붓고, 칸에 떨어진 자리는 updateSlots와 같다.
+ *  product: 앱이 함께 보낸 제품 정보(이름·색·제형·labelImage) — 없으면 기기가 아는 제품 정보 */
+export function load(productId, n, remaining = 30, product = null) {
   return hold(async () => {
-    const p = products.get(productId) ?? { color: '#7FB8E6', form: '캡슐', name: '영양제' };
+    // 방금 등록한 제품은 상태 동기화 전이라 앱이 함께 보낸 정보(product)를 먼저 씀
+    const p = { color: '#7FB8E6', form: '캡슐', name: '영양제', ...(products.get(productId) ?? {}), ...(product ?? {}) };
     const capsule = p.form === '캡슐';
     if (pouchZoom) await zoomPouch(false);
     setUI({ status: '영양제 통에서 투입구로 붓는 중', done: false });
     const TOP = BODY_H + BEVEL;
-    const { g: bottle, cap } = makeBottle(p);
+    const { g: bottle, cap } = makeBottle(p, slotCount(remaining));
     const rest = new THREE.Vector3(0.82, TOP + 1.05, FEED_Z);    // 통이 서 있는 자리(입구 기준)
     const pourAt = new THREE.Vector3(0.17, TOP + 0.27, FEED_Z);  // 기울였을 때 입구 자리: 열린 덮개 위, 호퍼 바로 위
     bottle.position.copy(rest).add(new THREE.Vector3(0, 0.7, 0));

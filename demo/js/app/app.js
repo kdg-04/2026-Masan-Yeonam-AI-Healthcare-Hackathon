@@ -20,6 +20,7 @@ export const SCENARIO_DATE = '2026-11-21';
 const SCREENS = { home, supplements, safety, family, health, menu };
 const DEVICE_TIMEOUT_MS = 15000;
 const LOAD_REMAINING = 30; // 새로 넣은 칸의 잔량(회분). 기기는 이만큼 알약을 붓는 장면을 보여 줌
+const LOAD_TIMEOUT_MS = 25000; // 넣기 장면(통 붓기 → 호퍼 → 칸 돌리기 → 넣기)이 약 10초라 넉넉히
 
 // 이 휴대폰의 주인(관리자) = 엄마. 처음엔 엄마 한 명, "+"로 초대하면 아빠 → 아들 → 딸 순서 (11-21 04:40 사용자 결정: 잠깐 아빠로 했다가 되돌림)
 export const OWNER_ID = 'mom';
@@ -79,8 +80,11 @@ export const api = {
     if (!p || store.state.ui.busy) return;
     if (relay?.peerStatus() === 'none') { toast('기기 페이지가 연결되지 않았어요. 기기 페이지를 열어 주세요'); return; }
     store.set('ui.busy', 'load');
-    bus.emit('device:load', { productId: p.productId, slot: p.slot, remaining: LOAD_REMAINING, appId: APP_ID });
-    armTimeout('load', () => { store.set('ui.busy', null); toast('기기 응답이 없어요. 칸에는 아직 넣지 않았어요'); });
+    const prod = store.state.products.find((x) => x.id === p.productId);
+    // 방금 등록한 제품은 기기가 아직 모르므로(상태 동기화 전) 이름·색·제형·라벨 사진을 함께 보냄
+    const product = prod && { id: prod.id, name: prod.name, form: prod.form, color: prod.color, labelImage: prod.labelImage ?? null };
+    bus.emit('device:load', { productId: p.productId, slot: p.slot, remaining: LOAD_REMAINING, product, appId: APP_ID });
+    armTimeout('load', () => { store.set('ui.busy', null); toast('기기 응답이 없어요. 칸에는 아직 넣지 않았어요'); }, LOAD_TIMEOUT_MS);
   },
 
   /** S7 조합 저장. remove = 빼고 저장할 제품 id, flag = 그대로 저장해서 주의 표시를 남길지 */
@@ -289,9 +293,9 @@ const firstReset = createOnce(); // 기기가 여러 대면 같은 초기화 신
 /* ───────── 기기에서 온 이벤트 ───────── */
 let timeoutTimer = null;
 let replayTimer = null; // 워치 기록 재생
-function armTimeout(kind, fn) {
+function armTimeout(kind, fn, ms = DEVICE_TIMEOUT_MS) {
   clearTimeout(timeoutTimer);
-  timeoutTimer = setTimeout(() => { if (store.state.ui.busy === kind) fn(); }, DEVICE_TIMEOUT_MS);
+  timeoutTimer = setTimeout(() => { if (store.state.ui.busy === kind) fn(); }, ms);
 }
 
 function applyLoaded({ productId, slot }) {
