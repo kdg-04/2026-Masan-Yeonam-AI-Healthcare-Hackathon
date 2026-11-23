@@ -19,6 +19,7 @@ import * as menu from './screens/menu.js';
 export const SCENARIO_DATE = '2026-11-21';
 const SCREENS = { home, supplements, safety, family, health, menu };
 const DEVICE_TIMEOUT_MS = 15000;
+const LOAD_REMAINING = 30; // 새로 넣은 칸의 잔량(회분). 기기는 이만큼 알약을 붓는 장면을 보여 줌
 
 // 이 휴대폰의 주인(관리자) = 엄마. 처음엔 엄마 한 명, "+"로 초대하면 아빠 → 아들 → 딸 순서 (11-21 04:40 사용자 결정: 잠깐 아빠로 했다가 되돌림)
 export const OWNER_ID = 'mom';
@@ -78,7 +79,7 @@ export const api = {
     if (!p || store.state.ui.busy) return;
     if (relay?.peerStatus() === 'none') { toast('기기 페이지가 연결되지 않았어요. 기기 페이지를 열어 주세요'); return; }
     store.set('ui.busy', 'load');
-    bus.emit('device:load', { productId: p.productId, slot: p.slot, appId: APP_ID });
+    bus.emit('device:load', { productId: p.productId, slot: p.slot, remaining: LOAD_REMAINING, appId: APP_ID });
     armTimeout('load', () => { store.set('ui.busy', null); toast('기기 응답이 없어요. 칸에는 아직 넣지 않았어요'); });
   },
 
@@ -297,7 +298,7 @@ function applyLoaded({ productId, slot }) {
   clearTimeout(timeoutTimer);
   store.update((st) => {
     const sl = st.slots.find((x) => x.slot === slot);
-    if (sl) { sl.productId = productId; sl.remaining = 30; }
+    if (sl) { sl.productId = productId; sl.remaining = LOAD_REMAINING; }
     if (st.ui.pending?.productId === productId) st.ui.pending.loaded = true;
     st.ui.busy = null;
   });

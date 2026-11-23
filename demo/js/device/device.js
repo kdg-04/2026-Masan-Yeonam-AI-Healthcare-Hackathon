@@ -60,10 +60,10 @@ bus.on('state:sync', (s) => {
 });
 const follow = (appId) => acceptSync.claim(appId); // 사람이 조작한 앱을 따름
 
-bus.on('device:load', ({ productId, slot, appId }) => (follow(appId), queue.run(async () => {
+bus.on('device:load', ({ productId, slot, remaining, appId }) => (follow(appId), queue.run(async () => {
   if (!ready) return;
   display(`${slot}번 칸으로 옮기는 중`);
-  await device.load(productId, slot);
+  await device.load(productId, slot, remaining);
   bus.emit('device:loaded', { productId, slot });
   display(`${slot}번 칸에 넣었어요`);
 })));

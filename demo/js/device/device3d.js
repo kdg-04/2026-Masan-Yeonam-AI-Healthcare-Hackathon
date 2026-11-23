@@ -146,6 +146,15 @@ const pillGeo = {
   tablet: new THREE.CylinderGeometry(0.048, 0.048, 0.03, 20),
 };
 const pillMats = new Map();
+/** 칸에 보이는 알약 수: 잔량 1.2회분당 1알, 최대 45알 */
+const slotCount = (remaining) => Math.min(45, Math.max(1, Math.round(remaining / 1.2)));
+/** 칸 안 i번째 알약 자리(칸 그룹 기준)와 회전 — updateSlots와 넣기 장면이 같은 자리를 써서 넣은 뒤 알약이 튀지 않게 */
+function slotPillPose(c, i) {
+  const row = i % 4, layer = Math.floor(i / 6);
+  const r = DISC.rIn + 0.1 + row * 0.12;
+  const da = ((Math.floor(i / 4) % 2) ? 1 : -1) * 6 + ((i * 7) % 5 - 2);
+  return { pos: clockPos(c.clock + da / 30, r, 0.03 + layer * 0.045), rotY: i * 1.3 };
+}
 function pillMesh(color, form, scale = 1) {
   const capsule = form === '캡슐';
   const key = `${color}-${capsule}`;
@@ -934,14 +943,12 @@ export function updateSlots(slots, productList) {
     for (const pill of c.pills) c.group.remove(pill);
     c.pills = [];
     if (!p) continue;
-    const n = Math.min(36, Math.max(1, Math.round(s.remaining / 1.6)));
+    const n = slotCount(s.remaining);
     for (let i = 0; i < n; i++) {
       const pill = pillMesh(p.color, p.form);
-      const row = i % 4, layer = Math.floor(i / 6);
-      const r = DISC.rIn + 0.1 + row * 0.12;
-      const da = ((Math.floor(i / 4) % 2) ? 1 : -1) * 6 + ((i * 7) % 5 - 2);
-      pill.position.copy(clockPos(c.clock + da / 30, r, 0.03 + layer * 0.045));
-      pill.rotation.y = i * 1.3;
+      const pose = slotPillPose(c, i);
+      pill.position.copy(pose.pos);
+      pill.rotation.y = pose.rotY;
       c.group.add(pill);
       c.pills.push(pill);
     }
@@ -985,25 +992,42 @@ async function hold(fn) {
 }
 export function isBusy() { return busy; }
 
-/** 투입: 덮개 열림 → 디스크가 대상 칸을 앞으로 → 알약이 호퍼·하우징·노즐을 지나 칸으로 */
-export function load(productId, n) {
+/** 투입: 덮개 열림 → 디스크가 대상 칸을 앞으로 → 알약 여러 알이 호퍼·하우징·노즐을 지나 칸에 차례로 떨어져 쌓임(11-23)
+ *  remaining: 새 칸 잔량(앱이 정함). 그만큼(slotCount) 붓고, 떨어진 자리는 updateSlots와 같아 넣은 뒤에도 그대로 */
+export function load(productId, n, remaining = 30) {
   return hold(async () => {
     const p = products.get(productId) ?? { color: '#7FB8E6', form: '캡슐' };
+    const capsule = p.form === '캡슐';
     if (pouchZoom) await zoomPouch(false);
     setUI({ status: `${n}번 칸에 넣는 중`, done: false });
     await setXray(true);
     await tween(450, (t) => { hinge.rotation.x = -1.05 * t; });
     await rotateTo(n);
     glowSlot(n);
-    const path = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, BODY_H + 0.9, FEED_Z), new THREE.Vector3(0, 3.7, FEED_Z), new THREE.Vector3(0, 3.33, FEED_Z),
-      new THREE.Vector3(0, 3.0, FEED_Z), new THREE.Vector3(0, BIN_TOP + 0.02, FEED_Z), new THREE.Vector3(0, DISC.y + 0.3, FEED_Z),
-    ]);
-    const pill = pillMesh(p.color, p.form, 1.5);
-    pill.position.copy(path.getPointAt(0)); // 장면에 넣기 전에 시작 자리로: 안 그러면 첫 프레임에 원점(출구 아래 몸체 속)에 한 번 보임
-    scene.add(pill);
-    await tween(1300, (t) => { pill.position.copy(path.getPointAt(t)); });
-    scene.remove(pill);
+    const c = compartments.get(n);
+    for (const old of c.pills) c.group.remove(old);
+    c.pills = [];
+    disc.updateMatrixWorld(true);
+    const total = slotCount(remaining);
+    await Promise.all(Array.from({ length: total }, (_, i) => wait(i * 60).then(async () => {
+      const pose = slotPillPose(c, i);
+      const land = c.group.localToWorld(pose.pos.clone());
+      const x = ((i % 3) - 1) * 0.025;
+      const path = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(x, BODY_H + 0.9, FEED_Z), new THREE.Vector3(x * 0.5, 3.7, FEED_Z), new THREE.Vector3(0, 3.33, FEED_Z),
+        new THREE.Vector3(0, 3.0, FEED_Z), new THREE.Vector3(0, BIN_TOP + 0.02, FEED_Z),
+        new THREE.Vector3(land.x, DISC.y + 0.32, land.z), land,
+      ]);
+      const pill = pillMesh(p.color, p.form, 1);
+      pill.rotation.y = pose.rotY;
+      pill.position.copy(path.getPointAt(0)); // 장면에 넣기 전에 시작 자리로: 안 그러면 첫 프레임에 원점(출구 아래 몸체 속)에 한 번 보임
+      scene.add(pill);
+      await tween(900, (t) => { pill.position.copy(path.getPointAt(t)); });
+      c.group.attach(pill);
+      pill.position.copy(pose.pos);
+      pill.rotation.set(0, pose.rotY, capsule ? Math.PI / 2 : 0); // updateSlots와 같은 자세
+      c.pills.push(pill);
+    })));
     await tween(450, (t) => { hinge.rotation.x = -1.05 * (1 - t); });
     await wait(400);
     glowSlot(null);
